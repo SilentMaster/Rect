@@ -1,24 +1,24 @@
 #include "stdafx.h"
 #include "matrix.h"
 
-_MATRIX CMyMatrix::CMyMatrix(const double init, const unsigned int row, const unsigned int col)
+
+_MATRIX CMyMatrix::CMyMatrix()
+{
+	nCol = 0;
+	nRow = 0;
+	pMatrix = NULL;
+}
+_MATRIX CMyMatrix::CMyMatrix(unsigned int row, unsigned int col, double value)
 {
 	nCol = col;
 	nRow = row;
 
-	pMatrix = new double *[nRow];
+	pMatrix = new double [nRow * nCol];
 	if(pMatrix != NULL)
 	{
-		for(unsigned int i = 0; i < nRow; i++)
-		{
-			pMatrix[i] = new double [nCol];
-			if(pMatrix[i] != NULL)
-			{
-				for(unsigned int j = 0; j < nCol; ++j)
-				{
-					pMatrix[i][j] = init;
-				}
-			}
+		for(unsigned int i = 0; i < nRow * nCol; i++)
+		{	
+			pMatrix[i] = value;
 		}
 	}
 }
@@ -31,19 +31,12 @@ _MATRIX CMyMatrix::CMyMatrix(const CMyMatrix &source)
 		nRow = source.nRow;
 		nCol = source.nCol;
 
-		pMatrix = new double *[nRow];
+		pMatrix = new double [nRow * nCol];
 		if(pMatrix != NULL)
 		{
-			for(unsigned int i = 0; i < nRow; ++i)
-			{
-				pMatrix[i] = new double [nCol];
-				if(pMatrix[i] != NULL)
-				{
-					for(unsigned int j = 0; j < nCol; ++j)
-					{
-						pMatrix[i][j] = source.pMatrix[i][j];
-					}
-				}
+			for(unsigned int i = 0; i < nRow * nCol; i++)
+			{	
+				pMatrix[i] = source.pMatrix[i];
 			}
 		}
 	}
@@ -63,12 +56,9 @@ _MATRIX void CMyMatrix::Add(const CMyMatrix &source)
 {
 	if(pMatrix != NULL && nRow == source.nRow && nCol == source.nCol)
 	{
-		for(unsigned int i = 0; i < nRow; ++i)
+		for(unsigned int i = 0; i < nRow * nCol; ++i)
 		{
-			for(unsigned int j = 0; j < nCol; ++j)
-			{
-				pMatrix[i][j] += source.pMatrix[i][j];
-			}
+			pMatrix[i] += source.pMatrix[i];
 		}
 	}
 }
@@ -86,72 +76,48 @@ _MATRIX unsigned int CMyMatrix::Row()
 }
 
 
-_MATRIX void CMyMatrix::Resize(const double change, const unsigned int row, const unsigned int col)
+_MATRIX void CMyMatrix::Resize(unsigned int row, unsigned int col, double value)
 {
 	delete []pMatrix;
 
 	nRow = row;
 	nCol = col;
 
-	pMatrix = new double *[nRow];
+	pMatrix = new double [nRow * nCol];
 	if(pMatrix != NULL)
 	{
-		for(unsigned int i = 0; i < nRow; i++)
-		{
-			pMatrix[i] = new double [nCol];
-			if(pMatrix[i] != NULL)
-			{
-				for(unsigned int j = 0; j < nCol; ++j)
-				{
-					pMatrix[i][j] = change;
-				}
-			}
+		for(unsigned int i = 0; i < nRow * nCol; i++)
+		{	
+			pMatrix[i] = value;
 		}
 	}
 }
 
 
-_MATRIX void CMyMatrix::Trans()
+_MATRIX void CMyMatrix::Transposition()
 {
-	double **temp;
-
-	temp = new double *[nCol];
+	double *temp;
+	unsigned int i, j;
+	
+	temp = new double [nRow * nCol];
 	if(temp != NULL)
 	{
-		for(unsigned int i = 0; i < nCol; i++)
-		{
-			temp[i] = new double [nRow];
-			if(temp[i] != NULL)
-			{
-				for(unsigned int j = 0; j < nRow; ++j)
-				{
-					temp[i][j] = pMatrix[j][i];
-				}
-			}
+		for(i = 0; i < nRow * nCol; i++)
+		{	
+			temp[i] = pMatrix[i];
 		}
 	}
-
-	delete []pMatrix;
 
 	nRow += nCol;
 	nCol = nRow - nCol;
 	nRow = nRow - nCol;
-
-	pMatrix = new double *[nRow];
-	if(pMatrix != NULL)
-	{
-		for(unsigned int i = 0; i < nRow; i++)
+	
+	for(i = 0; i < nRow; i++)
+	{	
+		for(j = 0; j < nCol; ++j)
 		{
-			pMatrix[i] = new double [nCol];
-			if(pMatrix[i] != NULL)
-			{
-				for(unsigned int j = 0; j < nCol; ++j)
-				{
-					pMatrix[i][j] = temp[i][j];
-				}
-			}
+			pMatrix[i * nCol + j] = temp[j * nRow + i];
 		}
 	}
-
 	delete []temp;
 }
