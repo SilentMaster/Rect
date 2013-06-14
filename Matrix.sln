@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrix", "Matrix.vcxproj", "{C5505BCB-6CFD-4E69-B3C4-655BA3A2E14F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{A74E4EFF-F504-4942-B4DB-FB2A317D345D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5505BCB-6CFD-4E69-B3C4-655BA3A2E14F} = {C5505BCB-6CFD-4E69-B3C4-655BA3A2E14F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +18,10 @@ Global
 		{C5505BCB-6CFD-4E69-B3C4-655BA3A2E14F}.Debug|Win32.Build.0 = Debug|Win32
 		{C5505BCB-6CFD-4E69-B3C4-655BA3A2E14F}.Release|Win32.ActiveCfg = Release|Win32
 		{C5505BCB-6CFD-4E69-B3C4-655BA3A2E14F}.Release|Win32.Build.0 = Release|Win32
+		{A74E4EFF-F504-4942-B4DB-FB2A317D345D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A74E4EFF-F504-4942-B4DB-FB2A317D345D}.Debug|Win32.Build.0 = Debug|Win32
+		{A74E4EFF-F504-4942-B4DB-FB2A317D345D}.Release|Win32.ActiveCfg = Release|Win32
+		{A74E4EFF-F504-4942-B4DB-FB2A317D345D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

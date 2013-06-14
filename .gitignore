@@ -43,3 +43,4 @@ ipch/*
 */Release/*
 *.BASE
 *.REMOTE
+test/*
