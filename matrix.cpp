@@ -121,3 +121,157 @@ _MATRIX void CMyMatrix::Transposition()
 	}
 	delete []temp;
 }
+
+
+_MATRIX CMyMatrix & CMyMatrix::operator=(const CMyMatrix &a)
+{
+	unsigned int i;
+	if(nRow != a.nRow || nCol != a.nCol)
+	{
+		printf("Unmatch CMyMatrix!\n");
+		return *this;
+	}
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] = a.pMatrix[i];
+	}
+	return *this;
+}
+
+
+_MATRIX CMyMatrix & CMyMatrix::operator=(double value)
+{
+
+}
+	
+
+//重载+运算符，要求两个矩阵的大小相同
+_MATRIX const CMyMatrix CMyMatrix::operator+(const CMyMatrix &a)
+{
+	unsigned int i;
+	if(nRow != a.nRow || nCol != a.nCol)
+	{
+		printf("Unmatch CMyMatrix!\n");
+		return *this;
+	}
+	
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] += a.pMatrix[i];
+	}
+	return *this;
+}
+
+
+_MATRIX const CMyMatrix CMyMatrix::operator+(double value)
+{
+
+}
+
+
+//重载-运算符，要求两个矩阵的大小相同
+_MATRIX const CMyMatrix CMyMatrix::operator-(const CMyMatrix &a)
+{
+	unsigned int i;
+	if(nRow != a.nRow || nCol != a.nCol)
+	{
+		printf("Unmatch CMyMatrix!\n");
+		return *this;
+	}
+	
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] = pMatrix[i] - a.pMatrix[i];
+	}
+	return *this;
+}
+
+
+_MATRIX const CMyMatrix CMyMatrix::operator-(double value)
+{
+
+}
+
+	
+//重载*运算符，要求矩阵a的列数等于b的行数
+_MATRIX const CMyMatrix CMyMatrix::operator*(const CMyMatrix &a)
+{
+	unsigned int i, j, k;
+	double tmp;
+	if(nCol != a.nRow)
+	{
+		printf("Unmatch CMyMatrix!\n");
+		return *this;
+	}
+	
+	CMyMatrix temp(nRow, a.nCol, 0);
+
+	for(i = 0; i < nRow; i++)
+	{
+		for(j = 0; j < a.nCol; j++)
+		{
+			tmp = 0;
+			for(k = 0; k < a.nRow; k++)
+			{
+				tmp += pMatrix[i * nCol + k] * a.pMatrix[k * a.nCol + j];
+			}
+			temp.pMatrix[i * a.nCol + j] = tmp;
+		}
+	}
+	return temp;
+}
+
+
+_MATRIX const CMyMatrix CMyMatrix::operator*(double value)
+{
+
+}
+	
+///重载==运算符，要求两个矩阵的大小相同
+_MATRIX bool CMyMatrix::operator==(const CMyMatrix &a)
+{
+	unsigned int i;
+	if(nRow != a.nRow || nCol != a.nCol)
+	{
+		printf("Unmatch CMyMatrix!\n");
+		return false;
+	}
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		if(this->pMatrix[i] != a.pMatrix[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+
+_MATRIX bool CMyMatrix::operator==(double value)
+{
+
+}
+
+
+_MATRIX bool CMyMatrix::operator!=(const CMyMatrix &source)
+{
+
+}
+
+
+_MATRIX bool CMyMatrix::operator!=(double value)
+{
+
+}
+	
+
+_MATRIX double CMyMatrix::get(unsigned int row, unsigned int col)
+{
+
+}
+
+
+_MATRIX void CMyMatrix::set(unsigned int row, unsigned int col, double value)
+{
+
+}
