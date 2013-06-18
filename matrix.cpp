@@ -141,7 +141,13 @@ _MATRIX CMyMatrix & CMyMatrix::operator=(const CMyMatrix &a)
 
 _MATRIX CMyMatrix & CMyMatrix::operator=(double value)
 {
-
+	unsigned int i;
+	pMatrix = new double[nRow * nCol];
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] = value;
+	}
+	return *this;
 }
 	
 
@@ -165,7 +171,12 @@ _MATRIX const CMyMatrix CMyMatrix::operator+(const CMyMatrix &a)
 
 _MATRIX const CMyMatrix CMyMatrix::operator+(double value)
 {
-
+	unsigned int i;
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] += value;
+	}
+	return *this;
 }
 
 
@@ -189,7 +200,12 @@ _MATRIX const CMyMatrix CMyMatrix::operator-(const CMyMatrix &a)
 
 _MATRIX const CMyMatrix CMyMatrix::operator-(double value)
 {
-
+	unsigned int i;
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] -= value;
+	}
+	return *this;
 }
 
 	
@@ -224,7 +240,12 @@ _MATRIX const CMyMatrix CMyMatrix::operator*(const CMyMatrix &a)
 
 _MATRIX const CMyMatrix CMyMatrix::operator*(double value)
 {
-
+	unsigned int i;
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] *= value;
+	}
+	return *this;
 }
 	
 ///重载==运算符，要求两个矩阵的大小相同
@@ -249,29 +270,70 @@ _MATRIX bool CMyMatrix::operator==(const CMyMatrix &a)
 
 _MATRIX bool CMyMatrix::operator==(double value)
 {
-
+	unsigned int i;
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] != value;
+		return false;
+	}
+	return true;
 }
 
 
 _MATRIX bool CMyMatrix::operator!=(const CMyMatrix &source)
 {
-
+	unsigned int i;
+	if(nRow != source.nRow || nCol != source.nCol)
+	{
+		printf("Unmatch CMyMatrix!\n");
+		return true;
+	}
+	else
+	{
+		for(i = 0; i < nRow * nCol; i++)
+		{
+			pMatrix[i] == source.pMatrix[i];
+			return false;
+		}
+		return true;
+	}
 }
 
 
 _MATRIX bool CMyMatrix::operator!=(double value)
 {
-
+	unsigned int i;
+	for(i = 0; i < nRow * nCol; i++)
+	{
+		pMatrix[i] == value;
+		return false;
+	}
+	return true;
 }
 	
 
 _MATRIX double CMyMatrix::get(unsigned int row, unsigned int col)
 {
-
+	double value;
+	if (row > nRow || col > nCol)
+	{
+		return -1;
+	}
+	else
+	{
+		value = pMatrix[row * nCol +col];
+		return value;
+	}
 }
 
 
 _MATRIX void CMyMatrix::set(unsigned int row, unsigned int col, double value)
 {
-
+	if (row > nRow || col > nCol)
+	{
+	}
+	else
+	{
+		pMatrix[row * nCol +col] = value;
+	}
 }
